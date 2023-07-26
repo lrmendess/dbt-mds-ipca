@@ -1,0 +1,85 @@
+
+version: 2
+
+models:
+    - name: ipca
+      description: "Informações mensais do IPCA desde 2019"
+      columns:
+          - name: ano
+            description: "Ano referente ao IPCA"
+            tests:
+                - not_null
+          - name: mes
+            description: "Mês referente ao IPCA"
+            tests:
+                - not_null
+                - accepted_values:
+                    values: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"]
+          - name: indice
+            description: "Valor de referência reajustado pela inflação"
+            tests:
+                - not_null
+          - name: pct_var_mes
+            description: "Percentual de inflação/deflação do mês"
+            tests:
+                - not_null
+          - name: pct_acum_ano
+            description: "Percentual acumulado do ano"
+            tests:
+                - not_null
+          - name: pct_acum_12m
+            description: "Percentual acumulado dos últimos 12 meses"
+            tests:
+                - not_null
+    - name: ipca_movimentacoes
+      description: "Informações mensais do IPCA desde 2019 com apontamento dos meses que tiveram movimentos de inflação ou deflação"
+      columns:
+          - name: ano
+            description: "Ano referente ao IPCA"
+            tests:
+                - not_null
+          - name: mes
+            description: "Mês referente ao IPCA"
+            tests:
+                - not_null
+                - accepted_values:
+                    values: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"]
+          - name: indice
+            description: "Valor de referência reajustado pela inflação"
+            tests:
+                - not_null
+          - name: pct_var_mes
+            description: "Percentual de inflação/deflação do mês"
+            tests:
+                - not_null
+          - name: pct_acum_ano
+            description: "Percentual acumulado do ano"
+            tests:
+                - not_null
+          - name: pct_acum_12m
+            description: "Percentual acumulado dos últimos 12 meses"
+            tests:
+                - not_null
+          - name: movimento
+            description: "Movimento de inflação ou deflação no mês"
+            tests:
+                - accepted_values:
+                    values: ["Inflação", "Deflação"]
+                    quote: true
+    - name: ipca_contador_movimentacoes_ano
+      description: "Agrupamento das informações do IPCA por ano e contagem dos meses com inflação ou deflação"
+      columns:
+          - name: ano
+            description: "Ano referente ao IPCA"
+            tests:
+                - not_null
+          - name: movimento
+            description: "Movimento de inflação ou deflação no ano"
+            tests:
+                - accepted_values:
+                    values: ["Inflação", "Deflação"]
+                    quote: true
+          - name: frequencia
+            description: "Número de ocorrências de inflação ou deflação no ano"
+            tests:
+                - not_null
